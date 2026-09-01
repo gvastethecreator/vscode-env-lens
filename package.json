@@ -14,12 +14,12 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/gvastethecreator/env-lens.git"
+    "url": "https://github.com/gvastethecreator/vscode-env-lens.git"
   },
   "bugs": {
-    "url": "https://github.com/gvastethecreator/env-lens/issues"
+    "url": "https://github.com/gvastethecreator/vscode-env-lens/issues"
   },
-  "homepage": "https://github.com/gvastethecreator/env-lens#readme",
+  "homepage": "https://github.com/gvastethecreator/vscode-env-lens#readme",
   "keywords": [
     "dotenv",
     "env",

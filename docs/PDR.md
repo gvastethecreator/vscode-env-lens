@@ -1,5 +1,5 @@
-Repo: `X:\vscode-extensions\env-lens`
-Remote: private (`gvastethecreator/env-lens`)
+Repo: `X:\vscode-extensions\vscode-env-lens`
+Remote: private (`gvastethecreator/vscode-env-lens`)
 
 # PDR — ENV Lens
 
