@@ -1,8 +1,8 @@
 {
   "name": "env-lens",
   "displayName": "ENV Lens",
-  "description": "Validate and sync .env files in the editor.",
-  "version": "0.0.1",
+  "description": "Validate dotenv files, compare env families, and add safe example placeholders.",
+  "version": "0.1.0",
   "packageManager": "pnpm@12.1.0",
   "publisher": "gvastethecreator",
   "author": {
@@ -12,6 +12,11 @@
   "type": "module",
   "icon": "media/icon.png",
   "private": true,
+  "pricing": "Free",
+  "galleryBanner": {
+    "color": "#111318",
+    "theme": "dark"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/gvastethecreator/vscode-env-lens.git"
@@ -25,16 +30,34 @@
     "env",
     "environment variables",
     ".env",
-    "validation"
+    "validation",
+    "configuration",
+    "secrets"
   ],
   "engines": {
     "vscode": "^1.134.0"
   },
   "categories": [
-    "Other"
+    "Programming Languages",
+    "Linters"
   ],
   "activationEvents": [],
-  "main": "./dist/extension.js",
+  "main": "./dist/node/extension.cjs",
+  "browser": "./dist/web/extension.cjs",
+  "extensionKind": [
+    "workspace"
+  ],
+  "files": [
+    "dist/node/extension.cjs",
+    "dist/web/extension.cjs",
+    "syntaxes/**",
+    "media/icon.png",
+    "media/preview.png",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "SECURITY.md"
+  ],
   "capabilities": {
     "virtualWorkspaces": {
       "supported": true
@@ -44,6 +67,29 @@
     }
   },
   "contributes": {
+    "languages": [
+      {
+        "id": "dotenv",
+        "aliases": [
+          "dotenv",
+          "ENV"
+        ],
+        "filenames": [
+          ".env"
+        ],
+        "filenamePatterns": [
+          "**/.env.*"
+        ],
+        "configuration": "./syntaxes/dotenv.language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "dotenv",
+        "scopeName": "source.dotenv",
+        "path": "./syntaxes/dotenv.tmLanguage.json"
+      }
+    ],
     "commands": [
       {
         "command": "envLens.validateCurrentFile",
@@ -60,22 +106,98 @@
         "title": "Add Missing Keys to Example",
         "category": "ENV Lens"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "ENV Lens",
+      "properties": {
+        "envLens.exampleFile": {
+          "type": "string",
+          "default": ".env.example",
+          "pattern": "^\\.env(?:\\.[A-Za-z0-9_-]+)+$",
+          "scope": "resource",
+          "description": "Dotenv basename used as the example file for the active env family."
+        },
+        "envLens.validation.enabled": {
+          "type": "boolean",
+          "default": true,
+          "scope": "resource",
+          "description": "Validate open dotenv files."
+        },
+        "envLens.validation.unresolvedReferences": {
+          "type": "boolean",
+          "default": true,
+          "scope": "resource",
+          "description": "Report unresolved and direct self references."
+        },
+        "envLens.validation.exampleDrift": {
+          "type": "boolean",
+          "default": true,
+          "scope": "resource",
+          "description": "Report key-name differences between related environment and example files."
+        },
+        "envLens.files.include": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "default": [
+            "**/.env",
+            "**/.env.*"
+          ],
+          "maxItems": 16,
+          "scope": "resource",
+          "description": "Workspace-relative glob patterns used for bounded env-family discovery."
+        },
+        "envLens.files.exclude": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "default": [
+            "**/node_modules/**",
+            "**/.git/**",
+            "**/dist/**",
+            "**/build/**",
+            "**/out/**"
+          ],
+          "maxItems": 16,
+          "scope": "resource",
+          "description": "Workspace-relative glob patterns excluded from env-family discovery."
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "pnpm run package",
     "compile": "tsc --noEmit && node esbuild.cjs",
     "watch": "node esbuild.cjs --watch",
     "package": "tsc --noEmit && node esbuild.cjs --production",
-    "vsix": "pnpm run package && vsce package --no-dependencies",
+    "vsix": "vsce package --no-dependencies --out env-lens.vsix",
+    "inspect:vsix": "node scripts/inspect-vsix.mjs env-lens.vsix",
     "check-types": "tsc --noEmit",
-    "test": "node --test --experimental-strip-types src/**/*.test.ts"
+    "test": "pnpm run test:unit",
+    "test:unit": "node --test --experimental-strip-types src/**/*.test.ts",
+    "test:grammar": "node scripts/check-grammar.mjs",
+    "test:performance": "node --experimental-strip-types scripts/performance.mjs",
+    "test:integration": "node test/integration/run.mjs",
+    "build:test-web": "node scripts/build-web-tests.mjs",
+    "test:web": "pnpm run build:test-web && node test/web/run.mjs",
+    "test:vsix": "node test/integration/run-vsix.mjs",
+    "quality": "pnpm run test:unit && pnpm run test:grammar && pnpm run check-types && pnpm run compile && pnpm run test:performance"
   },
   "devDependencies": {
     "@types/node": "^26.4.0",
     "@types/vscode": "^1.134.0",
+    "@types/yauzl": "3.4.0",
+    "@vscode/test-electron": "3.1.0",
+    "@vscode/test-web": "0.0.81",
     "@vscode/vsce": "^3.9.2",
     "esbuild": "^0.28.2",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "vscode-oniguruma": "2.0.1",
+    "vscode-textmate": "9.3.2",
+    "yauzl": "3.4.0"
   }
 }

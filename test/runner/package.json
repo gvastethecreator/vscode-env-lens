@@ -1,0 +1,13 @@
+{
+  "name": "env-lens-test-runner",
+  "displayName": "ENV Lens Test Runner",
+  "version": "0.0.0",
+  "publisher": "gvastethecreator",
+  "engines": {
+    "vscode": "^1.134.0"
+  },
+  "main": "./extension.cjs",
+  "activationEvents": [
+    "*"
+  ]
+}

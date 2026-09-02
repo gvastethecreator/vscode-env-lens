@@ -1,14 +1,14 @@
+# PDR — ENV Lens
+
 Repo: `X:\vscode-extensions\vscode-env-lens`
 Remote: private (`gvastethecreator/vscode-env-lens`)
 
-# PDR — ENV Lens
-
 ## Status
-Scaffolded · Priority P0
+Release candidate complete · Priority P0
 
 ## Product summary
 
-ENV Lens is a modern `.env` companion for VS Code. It should keep the low-friction syntax-highlighting experience users expect while adding lightweight diagnostics and synchronization workflows that reduce configuration mistakes across `.env`, `.env.example` and environment-specific variants.
+ENV Lens is a modern `.env` companion for VS Code. It keeps the low-friction syntax-highlighting experience users expect while adding lightweight diagnostics and synchronization workflows that reduce configuration mistakes across `.env`, `.env.example` and environment-specific variants.
 
 ## Opportunity
 
@@ -79,7 +79,6 @@ Never expose values in diagnostic messages.
 - `ENV Lens: Validate Current File`
 - `ENV Lens: Compare with Example`
 - `ENV Lens: Add Missing Keys to Example`
-- `ENV Lens: Sort Keys` (optional MVP if implementation remains safe)
 
 ### Code Actions
 
@@ -97,7 +96,7 @@ Where diagnostics support a deterministic fix:
 
 ## Configuration
 
-Proposed settings:
+Settings:
 
 ```json
 {
@@ -105,9 +104,14 @@ Proposed settings:
   "envLens.validation.enabled": true,
   "envLens.validation.unresolvedReferences": true,
   "envLens.validation.exampleDrift": true,
-  "envLens.files.include": [".env", ".env.*"],
-  "envLens.files.exclude": ["**/node_modules/**"],
-  "envLens.sort.caseSensitive": false
+  "envLens.files.include": ["**/.env", "**/.env.*"],
+  "envLens.files.exclude": [
+    "**/node_modules/**",
+    "**/.git/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/out/**"
+  ]
 }
 ```
 
@@ -125,38 +129,39 @@ Keep settings minimal. Multi-root workspaces must resolve configuration per Work
 
 ## Architecture
 
-Suggested modules:
+Implemented modules:
 
 ```text
 src/
 ├─ extension.ts
 ├─ core/
-│  ├─ lexer.ts
 │  ├─ parser.ts
 │  ├─ model.ts
-│  ├─ references.ts
-│  └─ compare.ts
-├─ providers/
+│  ├─ compare.ts
+│  ├─ edits.ts
+│  ├─ filenames.ts
+│  └─ messages.ts
+├─ language/
 │  ├─ diagnostics.ts
 │  ├─ completion.ts
 │  ├─ definition.ts
 │  ├─ symbols.ts
-│  └─ codeActions.ts
-├─ commands/
-│  ├─ validate.ts
-│  ├─ compareExample.ts
-│  ├─ syncExample.ts
-│  └─ sortKeys.ts
+│  ├─ codeActions.ts
+│  └─ familyIndex.ts
+├─ commands/handlers.ts
+├─ logging/secretSafeLogger.ts
 └─ workspace/
-   ├─ discovery.ts
-   └─ config.ts
+   ├─ family.ts
+   ├─ documentCache.ts
+   ├─ configuration.ts
+   └─ uri.ts
 ```
 
 Parser should be pure and independent from VS Code APIs.
 
 ## VS Code APIs
 
-Likely stable API surface:
+Stable API surface:
 
 - `languages.createDiagnosticCollection`
 - `languages.registerCompletionItemProvider`
@@ -218,7 +223,6 @@ Unit fixture categories:
 - `export KEY=value`;
 - multiple env variants;
 - example drift;
-- sort preserving comments/groups.
 
 Integration:
 
@@ -227,7 +231,7 @@ Integration:
 - multi-root workspace isolation;
 - non-file URI compatibility;
 - Restricted Mode behavior;
-- web host if supported.
+- web host and writable virtual filesystem.
 
 ## Acceptance criteria for v1
 
