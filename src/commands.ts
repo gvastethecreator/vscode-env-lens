@@ -1,5 +1,5 @@
-export const COMMANDS = [
-  "envLens.validateCurrentFile",
-  "envLens.compareWithExample",
-  "envLens.addMissingKeysToExample",
-] as const;
+export const COMMANDS = Object.freeze({
+  validateCurrentFile: "envLens.validateCurrentFile",
+  compareWithExample: "envLens.compareWithExample",
+  addMissingKeysToExample: "envLens.addMissingKeysToExample",
+});

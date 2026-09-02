@@ -23,24 +23,36 @@ const esbuildProblemMatcherPlugin = {
 };
 
 async function main() {
-  const ctx = await esbuild.context({
+  const shared = {
     entryPoints: ["src/extension.ts"],
     bundle: true,
     format: "cjs",
     minify: production,
     sourcemap: !production,
     sourcesContent: false,
-    platform: "node",
-    outfile: "dist/extension.js",
     external: ["vscode"],
     logLevel: "silent",
     plugins: [esbuildProblemMatcherPlugin],
-  });
+  };
+  const contexts = await Promise.all([
+    esbuild.context({
+      ...shared,
+      platform: "node",
+      target: "node20",
+      outfile: "dist/node/extension.cjs",
+    }),
+    esbuild.context({
+      ...shared,
+      platform: "browser",
+      target: "es2022",
+      outfile: "dist/web/extension.cjs",
+    }),
+  ]);
   if (watch) {
-    await ctx.watch();
+    await Promise.all(contexts.map((context) => context.watch()));
   } else {
-    await ctx.rebuild();
-    await ctx.dispose();
+    await Promise.all(contexts.map((context) => context.rebuild()));
+    await Promise.all(contexts.map((context) => context.dispose()));
   }
 }
 
