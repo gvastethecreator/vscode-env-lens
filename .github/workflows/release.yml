@@ -1,0 +1,88 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      registry:
+        description: Registry to publish after verification
+        type: choice
+        options:
+          - artifact-only
+          - vscode-marketplace
+          - open-vsx
+        default: artifact-only
+
+permissions:
+  contents: read
+
+concurrency:
+  group: env-lens-release
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    name: Verify release artifact
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run quality
+      - run: pnpm run package
+      - run: pnpm run test:web
+      - run: pnpm run vsix
+      - run: pnpm run inspect:vsix
+      - run: xvfb-run -a pnpm run test:vsix
+      - run: sha256sum env-lens.vsix > env-lens.vsix.sha256
+      - uses: actions/upload-artifact@v6
+        with:
+          name: env-lens-vsix
+          path: |
+            env-lens.vsix
+            env-lens.vsix.sha256
+          if-no-files-found: error
+
+  marketplace:
+    name: Publish VS Code Marketplace
+    needs: prepare
+    if: ${{ inputs.registry == 'vscode-marketplace' }}
+    runs-on: ubuntu-latest
+    environment: release
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - uses: actions/download-artifact@v6
+        with:
+          name: env-lens-vsix
+      - run: pnpm exec vsce publish --packagePath env-lens.vsix
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+
+  open-vsx:
+    name: Publish Open VSX
+    needs: prepare
+    if: ${{ inputs.registry == 'open-vsx' }}
+    runs-on: ubuntu-latest
+    environment: release
+    steps:
+      - uses: pnpm/action-setup@v6
+        with:
+          version: "12.1.0"
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+      - uses: actions/download-artifact@v6
+        with:
+          name: env-lens-vsix
+      - run: pnpm dlx ovsx@1.1.1 publish env-lens.vsix --pat "$OVSX_PAT"
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}

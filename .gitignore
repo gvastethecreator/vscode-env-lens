@@ -7,8 +7,12 @@ logs/
 .DS_Store
 .env
 .env.*
+!test-workspace/**/.env
+!test-workspace/**/.env.*
 .scratch/
 .local/
 .code-review-graph/
 .vscode/settings.json
+.vscode-test-web/
+.vscode-test/
 test-workspace/.vscode/

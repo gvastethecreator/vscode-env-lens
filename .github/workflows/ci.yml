@@ -9,7 +9,58 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  quality:
+    name: Quality on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run quality
+
+  extension-host:
+    name: Extension Host on ${{ matrix.os }} with ${{ matrix.vscode }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            vscode: "1.134.0"
+          - os: ubuntu-latest
+            vscode: stable
+          - os: ubuntu-latest
+            vscode: insiders
+          - os: windows-latest
+            vscode: stable
+          - os: macos-latest
+            vscode: stable
+    env:
+      VSCODE_TEST_VERSION: ${{ matrix.vscode }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run package
+      - if: runner.os == 'Linux'
+        run: xvfb-run -a pnpm run test:integration
+      - if: runner.os != 'Linux'
+        run: pnpm run test:integration
+
+  web-host:
+    name: Web and virtual workspace
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -19,6 +70,25 @@ jobs:
           node-version: "22"
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm test
-      - run: pnpm run check-types
-      - run: pnpm run compile
+      - run: pnpm run package
+      - run: pnpm run test:web
+
+  vsix:
+    name: VSIX package and clean-profile smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run vsix
+      - run: pnpm run inspect:vsix
+      - run: xvfb-run -a pnpm run test:vsix
+      - uses: actions/upload-artifact@v6
+        with:
+          name: env-lens-vsix
+          path: env-lens.vsix
+          if-no-files-found: error
