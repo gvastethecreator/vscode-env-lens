@@ -1,80 +1,39 @@
 # ENV Lens — Complete delivery plan
 
-Status: execution specification  
+Status: release candidate complete; registry publication requires explicit approval
 Repository: `gvastethecreator/vscode-env-lens`  
-Product phase: scaffold  
+Product phase: `0.1.0` release candidate
 First public target: `0.1.0`  
-Planned product milestones: `0.1`, `0.2`, `0.3`, `1.0`  
-Last reviewed: 2026-09-01
+Delivery scope: original `0.1`, `0.2`, and `0.3` behavior consolidated into `0.1.0`
+Last reviewed: 2026-09-02
 
 This document complements `docs/PDR.md`. The PDR owns product intent; this file owns the executable specification, implementation phases, ticket dependencies, verification requirements, and release gates.
 
 ---
 
-## 1. Current state
+## 1. Delivered state
 
-The repository already contains a consistent project shell:
+The product owner requested the complete implementation in this pull request. The release candidate now includes:
 
-- strict TypeScript and esbuild;
-- command declarations;
-- CI for dependency installation, placeholder tests, type checking, and compilation;
-- PDR, development/publishing notes, security policy, agent guidance, icon, and preview;
-- declared support for Virtual Workspaces and Restricted Mode.
+- a declarative dotenv language and tested TextMate grammar;
+- a pure parser with stable ranges, recovery, and value-safe diagnostics;
+- debounced open-document validation and a versioned parse cache;
+- workspace-folder-scoped family discovery with bounded candidates and invalidation;
+- example drift diagnostics, explicit comparison, and safe empty-placeholder edits;
+- completion, Go to Definition, Document Symbols, and targeted Code Actions;
+- Node and browser bundles with URI-based filesystem access;
+- unit, grammar, performance, desktop, web, virtual-filesystem, and VSIX gates;
+- release documentation, privacy boundaries, and controlled publication workflows.
 
-The actual extension behavior is not implemented:
-
-- every command resolves to the shared `This command is not implemented yet.` handler;
-- the only test checks `1 + 1`;
-- no language contribution, grammar, language configuration, parser, diagnostics, cache, family resolver, completion provider, definition provider, symbol provider, or Code Action provider exists;
-- no browser entry exists despite the PDR's web goal;
-- no Extension Host integration suite or packaged VSIX smoke test exists;
-- `package.json` declares `"type": "module"` while esbuild emits a CommonJS `dist/extension.js`.
-
-The repository is therefore a well-documented scaffold, not yet a working `.env` extension.
+Marketplace publication, tags, and registry changes remain separate owner-approved operations.
 
 ---
 
-## 2. Product milestones
+## 2. Consolidated `0.1.0` scope
 
-Trying to ship every PDR feature simultaneously would turn a small extension into a language-server-sized project. Delivery is divided into explicit milestones.
+The original plan separated single-file validation, env families, and navigation into `0.1`, `0.2`, and `0.3`. The product owner chose one complete implementation pass. `0.1.0` therefore carries the full MVP contract while keeping the extension small and native to VS Code.
 
-### `0.1.0` — trustworthy single-file dotenv support
-
-- `.env*` language registration and TextMate syntax highlighting;
-- documented dotenv dialect;
-- pure lexer/parser;
-- diagnostics for malformed assignments, invalid keys, duplicate keys, and unresolved same-file `${KEY}` references;
-- `ENV Lens: Validate Current File`;
-- debounced active/open-document diagnostics;
-- safe Document Symbols if stable;
-- desktop and web bundles;
-- no workspace-wide discovery or file mutation.
-
-### `0.2.0` — env family and example drift
-
-- workspace-folder-scoped env family resolution;
-- `.env.example` comparison;
-- key-present/missing diagnostics;
-- `Compare with Example` command;
-- deterministic Code Actions for adding missing key names with empty placeholders;
-- multi-root isolation;
-- bounded file discovery and invalidation.
-
-### `0.3.0` — navigation and completion
-
-- `${KEY}` completion from the selected env family;
-- Go to Definition for unambiguous references;
-- safe origin metadata;
-- configurable include/exclude globs;
-- explicit selected-primary-file policy.
-
-### `1.0.0` — hardened stable contract
-
-- compatibility, performance, privacy, and mutation behavior proven;
-- parser limitations documented;
-- Marketplace/Open VSX publication quality;
-- migration and configuration stability commitment;
-- no unresolved P0/P1 correctness or secret-handling issues.
+The `1.0.0` stability milestone remains a later release decision. It requires public feedback, registry compatibility evidence, and an explicit commitment to configuration and diagnostic-code stability.
 
 Sorting, cloud secret integrations, schema engines, masking gimmicks, and broad framework-specific validation remain outside this plan unless separately approved.
 
@@ -369,7 +328,7 @@ Values may exist transiently in parser memory because the active document contai
 Correct the ESM/CommonJS mismatch. Recommended outputs:
 
 - Node: `dist/node/extension.cjs`;
-- Web: `dist/web/extension.js`;
+- Web: `dist/web/extension.cjs`;
 - grammar/configuration files shipped declaratively;
 - browser-safe shared core;
 - no Node-only path/fs APIs in common modules.
@@ -536,6 +495,8 @@ Do not silently skip a file due to limits; show a bounded, value-free explanatio
 ---
 
 ## 14. Ordered ticket backlog
+
+This backlog records the original dependency order. The implementation work from ENV-001 through ENV-033 was consolidated into the `0.1.0` release candidate. Version-number release tickets remain historical gates, not evidence of a registry publication.
 
 Use these IDs in GitHub Issues, branches, commits, and PR descriptions.
 
