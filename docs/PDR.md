@@ -233,6 +233,10 @@ Integration:
 - Restricted Mode behavior;
 - web host and writable virtual filesystem.
 
+## Assets
+
+`media/icon-imagegen-source.png` retains the original generated concept. `media/source/env-lens-approved.png` is the visually approved, cleaned native-alpha raster. `media/icon.png` and `media/icon-512.png` are rendered directly from that PNG; no SVG production path remains. `media/preview.png` is the real VS Code runtime capture on a transparent 1200×800 canvas.
+
 ## Acceptance criteria for v1
 
 - no secret value leaves the extension process;

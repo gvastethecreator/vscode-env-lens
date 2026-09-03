@@ -10,6 +10,7 @@ VS Code extension (`gvastethecreator.env-lens`). pnpm. TypeScript in `src/`. esb
 - Compile: `pnpm run compile`
 - Watch: `pnpm run watch`
 - Production bundle: `pnpm run package`
+- Media from approved raster: `pnpm run render:media`
 - VSIX: `pnpm run vsix`
 
 F5 (`Run Extension`) compiles, then opens `test-workspace/`.
