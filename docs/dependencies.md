@@ -1,6 +1,6 @@
 # Dependencies and supply chain
 
-Reviewed: 2026-09-02
+Reviewed: 2026-09-03
 
 ENV Lens has no runtime npm dependencies. The Node and browser bundles contain the extension code only and leave the built-in `vscode` module external. The extension does not need a parser package, network client, telemetry SDK, native module, shell helper, or secret store at runtime.
 
@@ -15,6 +15,8 @@ ENV Lens has no runtime npm dependencies. The Node and browser bundles contain t
 | `@vscode/test-web` | 0.0.81 | MIT | Browser and virtual-workspace Extension Host tests. |
 | `@vscode/vsce` | 3.9.2 | MIT | VSIX packaging. |
 | `esbuild` | 0.28.2 | MIT | Node and browser bundling. |
+| `playwright` | 1.62.1 | Apache-2.0 | Chromium installation for clean Linux web-host tests. |
+| `sharp` | 0.35.4 | Apache-2.0 | Raster media validation. |
 | `typescript` | 7.0.2 | Apache-2.0 | Static type checking. |
 | `vscode-oniguruma` | 2.0.1 | MIT | Real TextMate grammar tokenization tests. |
 | `vscode-textmate` | 9.3.2 | MIT | Real TextMate grammar tokenization tests. |
