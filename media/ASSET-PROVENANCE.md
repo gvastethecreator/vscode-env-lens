@@ -13,9 +13,9 @@ The final PNG files use a real alpha channel. Empty pixels, including all four c
 
 ## Marketplace preview
 
-- **Capture date:** 2026-09-02
-- **Source:** the real VS Code web Extension Development Host running ENV Lens against the synthetic `test-workspace/alpha/.env` fixture.
-- **Visible behavior:** dotenv syntax highlighting and the live Problems list produced by ENV Lens.
-- **Processing:** the 1140 × 740 runtime capture was centered on a 1200 × 800 transparent RGBA canvas. No interface elements were generated, replaced, or composited.
+- **Capture date:** 2026-09-03
+- **Source:** ENV Lens 0.1.0 installed in stable VS Code 1.136.1 against the synthetic `atlas-env/.env` fixture.
+- **Visible behavior:** dotenv syntax highlighting, inline diagnostics, and the live Problems list produced by ENV Lens.
+- **Processing:** the real dotenv editor and Problems panel were tightly cropped and framed with a transparent RGBA edge. No interface elements were generated, replaced, or composited.
 
 The fixture values are synthetic and contain no user data or secrets.

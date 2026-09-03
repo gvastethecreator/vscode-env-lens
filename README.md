@@ -14,7 +14,7 @@
 
 ENV Lens validates `.env*` files as you edit. It also compares related environment and example files without showing or copying secret values.
 
-<img src="media/preview.png" alt="ENV Lens diagnostics in a running VS Code editor" width="100%" />
+<img src="media/preview.png" alt="ENV Lens diagnostics for an example dotenv file in VS Code" width="100%" />
 
 ## Features
 

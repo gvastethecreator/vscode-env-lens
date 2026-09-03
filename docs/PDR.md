@@ -1,7 +1,7 @@
 # PDR — ENV Lens
 
-Repo: `X:\vscode-extensions\vscode-env-lens`
-Remote: private (`gvastethecreator/vscode-env-lens`)
+Repo: `https://github.com/gvastethecreator/vscode-env-lens`
+Remote: public (`gvastethecreator/vscode-env-lens`)
 
 ## Status
 Release candidate complete · Priority P0
@@ -235,7 +235,7 @@ Integration:
 
 ## Assets
 
-`media/icon-imagegen-source.png` retains the original generated concept. `media/source/env-lens-approved.png` is the visually approved, cleaned native-alpha raster. `media/icon.png` and `media/icon-512.png` are rendered directly from that PNG; no SVG production path remains. `media/preview.png` is the real VS Code runtime capture on a transparent 1200×800 canvas.
+`media/icon-imagegen-source.png` retains the original generated concept. `media/source/env-lens-approved.png` is the visually approved, cleaned native-alpha raster. `media/icon.png` and `media/icon-512.png` are rendered directly from that PNG; no SVG production path remains. `media/preview.png` is the real installed-extension capture, tightly cropped to the dotenv editor and Problems panel with a transparent outer edge.
 
 ## Acceptance criteria for v1
 

@@ -13,18 +13,24 @@ assert.deepEqual(await readFile(path.join(media, "icon-512.png")), expected512, 
 assert.deepEqual(await readFile(path.join(media, "icon.png")), expected256, "media/icon.png is not a direct render of the approved raster source.");
 
 await verifyAlphaPng(path.join(media, "icon.png"), 256, 256, "Marketplace icon");
-await verifyAlphaPng(path.join(media, "preview.png"), 1200, 800, "Marketplace preview");
-console.log("Media checks passed: approved raster icon and native-alpha 1200x800 preview.");
+await verifyAlphaPng(path.join(media, "preview.png"), undefined, undefined, "Marketplace preview", { minWidth: 640, minHeight: 200, maxWidth: 1200, maxHeight: 800 });
+console.log("Media checks passed: approved raster icon and tightly cropped native-alpha preview.");
 
-async function verifyAlphaPng(filename, width, height, label) {
+async function verifyAlphaPng(filename, width, height, label, bounds) {
   const image = sharp(filename);
   const metadata = await image.metadata();
   assert.equal(metadata.format, "png", `${label} must be PNG.`);
-  assert.equal(metadata.width, width, `${label} width changed.`);
-  assert.equal(metadata.height, height, `${label} height changed.`);
+  if (width !== undefined) assert.equal(metadata.width, width, `${label} width changed.`);
+  if (height !== undefined) assert.equal(metadata.height, height, `${label} height changed.`);
+  if (bounds) verifyBounds(metadata, bounds, label);
   assert.equal(metadata.channels, 4, `${label} must carry native alpha.`);
   const { data, info } = await image.ensureAlpha().raw().toBuffer({ resolveWithObject: true });
   const alpha = info.channels - 1;
   const corners = [alpha, (info.width - 1) * info.channels + alpha, (info.height - 1) * info.width * info.channels + alpha, (info.width * info.height - 1) * info.channels + alpha];
   assert.ok(corners.every((offset) => data[offset] === 0), `${label} corners must be transparent.`);
+}
+
+function verifyBounds(metadata, bounds, label) {
+  assert.ok(metadata.width >= bounds.minWidth && metadata.width <= bounds.maxWidth, `${label} width must be ${bounds.minWidth}-${bounds.maxWidth}px.`);
+  assert.ok(metadata.height >= bounds.minHeight && metadata.height <= bounds.maxHeight, `${label} height must be ${bounds.minHeight}-${bounds.maxHeight}px.`);
 }
