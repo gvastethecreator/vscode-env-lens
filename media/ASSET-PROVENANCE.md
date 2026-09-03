@@ -6,8 +6,8 @@
 - **Style reference:** the user-approved Color My Workspaces marketplace icon from this portfolio.
 - **Concept source:** OpenAI ImageGen, generated as a transparent RGBA cutout and retained in `icon-imagegen-source.png`.
 - **Prompt direction:** a flat magnifying glass inspecting exactly three abstract key/value rows; no text, backdrop, glow, glass, gloss, shadow, or extreme saturation.
-- **Production master:** `icon.svg`, a geometry and palette cleanup of the generated concept made to remove edge artifacts, avoid a washed-out result, and preserve legibility at 32 px. The final palette uses graphite with controlled amber, blue, teal, and violet accents.
-- **Exports:** `icon-512.png` and `icon.png`, rendered directly from the transparent vector master with headless Chromium.
+- **Approved production raster:** `source/env-lens-approved.png`, locked after removing edge artifacts from the generated concept while preserving the approved geometry and controlled amber, blue, teal, and violet palette.
+- **Exports:** `icon-512.png` and `icon.png`, rendered directly from the approved transparent PNG. No SVG reinterpretation remains.
 
 The final PNG files use a real alpha channel. Empty pixels, including all four corners, are transparent.
 
