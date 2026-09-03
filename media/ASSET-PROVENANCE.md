@@ -2,12 +2,12 @@
 
 ## Marketplace icon
 
-- **Design date:** 2026-09-02
-- **Style reference:** the user-approved Color My Workspaces marketplace icon from this portfolio.
-- **Concept source:** OpenAI ImageGen, generated as a transparent RGBA cutout and retained in `icon-imagegen-source.png`.
-- **Prompt direction:** a flat magnifying glass inspecting exactly three abstract key/value rows; no text, backdrop, glow, glass, gloss, shadow, or extreme saturation.
-- **Approved production raster:** `source/env-lens-approved.png`, locked after removing edge artifacts from the generated concept while preserving the approved geometry and controlled amber, blue, teal, and violet palette.
+- **Design date:** 2026-09-03
+- **Concept source:** OpenAI ImageGen output `exec-e951f7af-a39c-4692-8603-b8135ec8e63d`, retained in `icon-imagegen-source.png`.
+- **Prompt direction:** a minimal diagonal graphite magnifying glass inspecting exactly three aligned key/value rows in coral, orange, and violet; crisp vectorized 3D, transparent canvas, no France blue, emerald, plastic, glass, or background tile.
+- **Approved production raster:** `source/env-lens-approved.png`, normalized to a thin transparent safety margin without redrawing the generated art.
 - **Exports:** `icon-512.png` and `icon.png`, rendered directly from the approved transparent PNG. No SVG reinterpretation remains.
+- **SHA-256:** raw `D728B2C4588D47D7DA4C1492BC4A541A369A6602B11EF3251A94F11201517FFF`; approved `2B25F73A2574171757FC12840911630EA916F1DAD00FC71318C88BDB92513207`; 256 px `17348FBC93A5D6DC2E19BDDB904BC96CF7F4316C04FB2484A0C32E3245F8A5CB`.
 
 The final PNG files use a real alpha channel. Empty pixels, including all four corners, are transparent.
 
