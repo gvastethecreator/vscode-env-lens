@@ -11,6 +11,7 @@ VS Code extension (`gvastethecreator.env-lens`). pnpm. TypeScript in `src/`. esb
 - Watch: `pnpm run watch`
 - Production bundle: `pnpm run package`
 - Media from approved raster: `pnpm run render:media`
+- Quality: `pnpm run quality`
 - VSIX: `pnpm run vsix`
 
 F5 (`Run Extension`) compiles, then opens `test-workspace/`.
@@ -38,7 +39,7 @@ Category: `bug` or `enhancement`. Triage: `needs-triage`, `needs-info`, `ready-f
 
 ### Domain docs
 
-Single-context: root `CONTEXT.md` plus `docs/adr/`. See `docs/agents/domain.md`.
+See `docs/agents/domain.md`.
 
 ## Layout
 

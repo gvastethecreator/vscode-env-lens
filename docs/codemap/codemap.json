@@ -1,0 +1,865 @@
+{
+  "generated_at": "2026-09-05T04:45:27Z",
+  "generated_from_commit": "fd804a44a4be5af304ef9647effb25d778f929c0",
+  "scope": [
+    "."
+  ],
+  "nodes": [
+    {
+      "id": "esbuild",
+      "path": "esbuild.cjs",
+      "type": "interface",
+      "boundary": "Esbuild",
+      "entrypoints": [
+        "esbuild.cjs:main"
+      ],
+      "tests": [],
+      "callers": [
+        {
+          "id": "repository",
+          "type": "calls"
+        }
+      ],
+      "callees": [
+        {
+          "id": "external-dependencies",
+          "type": "imports"
+        }
+      ],
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "esbuild.cjs",
+            "symbol": "main"
+          }
+        ]
+      }
+    },
+    {
+      "id": "external-dependencies",
+      "path": "esbuild.cjs",
+      "type": "external",
+      "boundary": "External",
+      "entrypoints": [
+        "esbuild.cjs:esbuild"
+      ],
+      "tests": [],
+      "callers": [
+        {
+          "id": "esbuild",
+          "type": "imports"
+        },
+        {
+          "id": "scripts",
+          "type": "imports"
+        },
+        {
+          "id": "src",
+          "type": "imports"
+        },
+        {
+          "id": "src-commands",
+          "type": "imports"
+        },
+        {
+          "id": "src-language",
+          "type": "imports"
+        },
+        {
+          "id": "src-logging",
+          "type": "imports"
+        },
+        {
+          "id": "src-workspace",
+          "type": "imports"
+        }
+      ],
+      "callees": [],
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "esbuild.cjs",
+            "symbol": "esbuild"
+          }
+        ]
+      }
+    },
+    {
+      "id": "repository",
+      "path": "package.json",
+      "type": "module",
+      "boundary": "Repository",
+      "entrypoints": [
+        "package.json:{"
+      ],
+      "tests": [],
+      "callers": [],
+      "callees": [
+        {
+          "id": "esbuild",
+          "type": "calls"
+        },
+        {
+          "id": "scripts",
+          "type": "calls"
+        }
+      ],
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "package.json",
+            "symbol": "{"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scripts",
+      "path": "scripts",
+      "type": "service",
+      "boundary": "Scripts",
+      "entrypoints": [
+        "scripts/build-web-tests.mjs:root"
+      ],
+      "tests": [],
+      "callers": [
+        {
+          "id": "repository",
+          "type": "calls"
+        }
+      ],
+      "callees": [
+        {
+          "id": "external-dependencies",
+          "type": "imports"
+        },
+        {
+          "id": "src-core",
+          "type": "imports"
+        }
+      ],
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "scripts/build-web-tests.mjs",
+            "symbol": "root"
+          }
+        ]
+      }
+    },
+    {
+      "id": "src",
+      "path": "src",
+      "type": "module",
+      "boundary": "Src",
+      "entrypoints": [
+        "src/commands.ts:COMMANDS"
+      ],
+      "tests": [],
+      "callers": [
+        {
+          "id": "src-commands",
+          "type": "imports"
+        },
+        {
+          "id": "src-language",
+          "type": "imports"
+        }
+      ],
+      "callees": [
+        {
+          "id": "external-dependencies",
+          "type": "imports"
+        },
+        {
+          "id": "src-commands",
+          "type": "imports"
+        },
+        {
+          "id": "src-language",
+          "type": "imports"
+        },
+        {
+          "id": "src-logging",
+          "type": "imports"
+        },
+        {
+          "id": "src-workspace",
+          "type": "imports"
+        }
+      ],
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/commands.ts",
+            "symbol": "COMMANDS"
+          }
+        ]
+      }
+    },
+    {
+      "id": "src-commands",
+      "path": "src/commands",
+      "type": "module",
+      "boundary": "Src",
+      "entrypoints": [
+        "src/commands/handlers.ts:plural"
+      ],
+      "tests": [],
+      "callers": [
+        {
+          "id": "src",
+          "type": "imports"
+        }
+      ],
+      "callees": [
+        {
+          "id": "external-dependencies",
+          "type": "imports"
+        },
+        {
+          "id": "src",
+          "type": "imports"
+        },
+        {
+          "id": "src-core",
+          "type": "imports"
+        },
+        {
+          "id": "src-language",
+          "type": "imports"
+        },
+        {
+          "id": "src-logging",
+          "type": "imports"
+        },
+        {
+          "id": "src-workspace",
+          "type": "imports"
+        }
+      ],
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/commands/handlers.ts",
+            "symbol": "plural"
+          }
+        ]
+      }
+    },
+    {
+      "id": "src-core",
+      "path": "src/core",
+      "type": "service",
+      "boundary": "Src",
+      "entrypoints": [
+        "src/core/compare.ts:uniqueEntries"
+      ],
+      "tests": [
+        "src/core/compare.test.ts",
+        "src/core/edits.test.ts",
+        "src/core/filenames.test.ts",
+        "src/core/messages.test.ts",
+        "src/core/parser.test.ts"
+      ],
+      "callers": [
+        {
+          "id": "scripts",
+          "type": "imports"
+        },
+        {
+          "id": "src-commands",
+          "type": "imports"
+        },
+        {
+          "id": "src-language",
+          "type": "imports"
+        },
+        {
+          "id": "src-workspace",
+          "type": "imports"
+        }
+      ],
+      "callees": [],
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/core/compare.ts",
+            "symbol": "uniqueEntries"
+          }
+        ]
+      }
+    },
+    {
+      "id": "src-language",
+      "path": "src/language",
+      "type": "module",
+      "boundary": "Src",
+      "entrypoints": [
+        "src/language/codeActions.ts:EnvCodeActionProvider"
+      ],
+      "tests": [],
+      "callers": [
+        {
+          "id": "src",
+          "type": "imports"
+        },
+        {
+          "id": "src-commands",
+          "type": "imports"
+        }
+      ],
+      "callees": [
+        {
+          "id": "external-dependencies",
+          "type": "imports"
+        },
+        {
+          "id": "src",
+          "type": "imports"
+        },
+        {
+          "id": "src-core",
+          "type": "imports"
+        },
+        {
+          "id": "src-logging",
+          "type": "imports"
+        },
+        {
+          "id": "src-workspace",
+          "type": "imports"
+        }
+      ],
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/language/codeActions.ts",
+            "symbol": "EnvCodeActionProvider"
+          }
+        ]
+      }
+    },
+    {
+      "id": "src-logging",
+      "path": "src/logging",
+      "type": "module",
+      "boundary": "Src",
+      "entrypoints": [
+        "src/logging/secretSafeLogger.ts:formatFields"
+      ],
+      "tests": [],
+      "callers": [
+        {
+          "id": "src",
+          "type": "imports"
+        },
+        {
+          "id": "src-commands",
+          "type": "imports"
+        },
+        {
+          "id": "src-language",
+          "type": "imports"
+        }
+      ],
+      "callees": [
+        {
+          "id": "external-dependencies",
+          "type": "imports"
+        }
+      ],
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/logging/secretSafeLogger.ts",
+            "symbol": "formatFields"
+          }
+        ]
+      }
+    },
+    {
+      "id": "src-workspace",
+      "path": "src/workspace",
+      "type": "module",
+      "boundary": "Src",
+      "entrypoints": [
+        "src/workspace/configuration.ts:boundedStringArray"
+      ],
+      "tests": [],
+      "callers": [
+        {
+          "id": "src",
+          "type": "imports"
+        },
+        {
+          "id": "src-commands",
+          "type": "imports"
+        },
+        {
+          "id": "src-language",
+          "type": "imports"
+        }
+      ],
+      "callees": [
+        {
+          "id": "external-dependencies",
+          "type": "imports"
+        },
+        {
+          "id": "src-core",
+          "type": "imports"
+        }
+      ],
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/workspace/configuration.ts",
+            "symbol": "boundedStringArray"
+          }
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from": "esbuild",
+      "to": "external-dependencies",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "esbuild.cjs",
+            "symbol": "esbuild"
+          }
+        ]
+      }
+    },
+    {
+      "from": "repository",
+      "to": "esbuild",
+      "type": "calls",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "package.json",
+            "symbol": "esbuild.cjs"
+          }
+        ]
+      }
+    },
+    {
+      "from": "repository",
+      "to": "scripts",
+      "type": "calls",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "package.json",
+            "symbol": "scripts/inspect-vsix.mjs"
+          },
+          {
+            "path": "package.json",
+            "symbol": "scripts/check-grammar.mjs"
+          },
+          {
+            "path": "package.json",
+            "symbol": "scripts/performance.mjs"
+          }
+        ]
+      }
+    },
+    {
+      "from": "scripts",
+      "to": "external-dependencies",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "scripts/build-web-tests.mjs",
+            "symbol": "esbuild"
+          },
+          {
+            "path": "scripts/check-grammar.mjs",
+            "symbol": "vscode-oniguruma"
+          },
+          {
+            "path": "scripts/check-grammar.mjs",
+            "symbol": "vscode-textmate"
+          }
+        ]
+      }
+    },
+    {
+      "from": "scripts",
+      "to": "src-core",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "scripts/performance.mjs",
+            "symbol": "../src/core/parser.ts"
+          }
+        ]
+      }
+    },
+    {
+      "from": "src",
+      "to": "external-dependencies",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/extension.ts",
+            "symbol": "vscode"
+          }
+        ]
+      }
+    },
+    {
+      "from": "src",
+      "to": "src-commands",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/extension.ts",
+            "symbol": "./commands/handlers.ts"
+          }
+        ]
+      }
+    },
+    {
+      "from": "src",
+      "to": "src-language",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/extension.ts",
+            "symbol": "./language/codeActions.ts"
+          },
+          {
+            "path": "src/extension.ts",
+            "symbol": "./language/completion.ts"
+          },
+          {
+            "path": "src/extension.ts",
+            "symbol": "./language/definition.ts"
+          }
+        ]
+      }
+    },
+    {
+      "from": "src",
+      "to": "src-logging",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/extension.ts",
+            "symbol": "./logging/secretSafeLogger.ts"
+          }
+        ]
+      }
+    },
+    {
+      "from": "src",
+      "to": "src-workspace",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/extension.ts",
+            "symbol": "./workspace/documentCache.ts"
+          },
+          {
+            "path": "src/extension.ts",
+            "symbol": "./workspace/family.ts"
+          }
+        ]
+      }
+    },
+    {
+      "from": "src-commands",
+      "to": "external-dependencies",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/commands/handlers.ts",
+            "symbol": "vscode"
+          }
+        ]
+      }
+    },
+    {
+      "from": "src-commands",
+      "to": "src",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/commands/handlers.ts",
+            "symbol": "../commands.ts"
+          }
+        ]
+      }
+    },
+    {
+      "from": "src-commands",
+      "to": "src-core",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/commands/handlers.ts",
+            "symbol": "../core/compare.ts"
+          },
+          {
+            "path": "src/commands/handlers.ts",
+            "symbol": "../core/edits.ts"
+          },
+          {
+            "path": "src/commands/handlers.ts",
+            "symbol": "../core/filenames.ts"
+          }
+        ]
+      }
+    },
+    {
+      "from": "src-commands",
+      "to": "src-language",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/commands/handlers.ts",
+            "symbol": "../language/diagnostics.ts"
+          },
+          {
+            "path": "src/commands/handlers.ts",
+            "symbol": "../language/selector.ts"
+          }
+        ]
+      }
+    },
+    {
+      "from": "src-commands",
+      "to": "src-logging",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/commands/handlers.ts",
+            "symbol": "../logging/secretSafeLogger.ts"
+          }
+        ]
+      }
+    },
+    {
+      "from": "src-commands",
+      "to": "src-workspace",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/commands/handlers.ts",
+            "symbol": "../workspace/configuration.ts"
+          },
+          {
+            "path": "src/commands/handlers.ts",
+            "symbol": "../workspace/documentCache.ts"
+          },
+          {
+            "path": "src/commands/handlers.ts",
+            "symbol": "../workspace/family.ts"
+          }
+        ]
+      }
+    },
+    {
+      "from": "src-language",
+      "to": "external-dependencies",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/language/codeActions.ts",
+            "symbol": "vscode"
+          },
+          {
+            "path": "src/language/completion.ts",
+            "symbol": "vscode"
+          },
+          {
+            "path": "src/language/definition.ts",
+            "symbol": "vscode"
+          }
+        ]
+      }
+    },
+    {
+      "from": "src-language",
+      "to": "src",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/language/codeActions.ts",
+            "symbol": "../commands.ts"
+          }
+        ]
+      }
+    },
+    {
+      "from": "src-language",
+      "to": "src-core",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/language/codeActions.ts",
+            "symbol": "../core/model.ts"
+          },
+          {
+            "path": "src/language/diagnostics.ts",
+            "symbol": "../core/compare.ts"
+          },
+          {
+            "path": "src/language/diagnostics.ts",
+            "symbol": "../core/messages.ts"
+          }
+        ]
+      }
+    },
+    {
+      "from": "src-language",
+      "to": "src-logging",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/language/diagnostics.ts",
+            "symbol": "../logging/secretSafeLogger.ts"
+          },
+          {
+            "path": "src/language/familyIndex.ts",
+            "symbol": "../logging/secretSafeLogger.ts"
+          }
+        ]
+      }
+    },
+    {
+      "from": "src-language",
+      "to": "src-workspace",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/language/codeActions.ts",
+            "symbol": "../workspace/configuration.ts"
+          },
+          {
+            "path": "src/language/definition.ts",
+            "symbol": "../workspace/documentCache.ts"
+          },
+          {
+            "path": "src/language/definition.ts",
+            "symbol": "../workspace/uri.ts"
+          }
+        ]
+      }
+    },
+    {
+      "from": "src-logging",
+      "to": "external-dependencies",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/logging/secretSafeLogger.ts",
+            "symbol": "vscode"
+          }
+        ]
+      }
+    },
+    {
+      "from": "src-workspace",
+      "to": "external-dependencies",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/workspace/configuration.ts",
+            "symbol": "vscode"
+          },
+          {
+            "path": "src/workspace/documentCache.ts",
+            "symbol": "vscode"
+          },
+          {
+            "path": "src/workspace/family.ts",
+            "symbol": "vscode"
+          }
+        ]
+      }
+    },
+    {
+      "from": "src-workspace",
+      "to": "src-core",
+      "type": "imports",
+      "evidence": {
+        "status": "verified",
+        "locations": [
+          {
+            "path": "src/workspace/configuration.ts",
+            "symbol": "../core/filenames.ts"
+          },
+          {
+            "path": "src/workspace/documentCache.ts",
+            "symbol": "../core/model.ts"
+          },
+          {
+            "path": "src/workspace/documentCache.ts",
+            "symbol": "../core/parser.ts"
+          }
+        ]
+      }
+    }
+  ],
+  "flows": []
+}
