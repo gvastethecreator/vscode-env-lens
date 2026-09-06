@@ -2,6 +2,7 @@
 
 ## 0.1.0 — Unreleased
 
+- Added a Set Defaults command that writes factory settings to user and workspace scope.
 - Added a documented dotenv language, grammar, and language configuration.
 - Added value-safe diagnostics with debounced open-document updates.
 - Added workspace-folder-scoped env-family comparison and multi-root isolation.

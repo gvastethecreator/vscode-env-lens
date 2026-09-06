@@ -105,6 +105,11 @@
         "command": "envLens.addMissingKeysToExample",
         "title": "Add Missing Keys to Example",
         "category": "ENV Lens"
+      },
+      {
+        "command": "envLens.setDefaults",
+        "title": "Set Defaults",
+        "category": "ENV Lens"
       }
     ],
     "configuration": {
@@ -197,6 +202,7 @@
     "@vscode/test-web": "0.0.81",
     "@vscode/vsce": "^3.9.2",
     "esbuild": "^0.28.2",
+    "ovsx": "1.1.1",
     "playwright": "1.62.1",
     "sharp": "^0.35.4",
     "typescript": "^7.0.2",

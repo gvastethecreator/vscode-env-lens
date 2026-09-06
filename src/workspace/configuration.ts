@@ -37,6 +37,38 @@ function boundedStringArray(
   return Object.freeze(selected.length > 0 ? selected : [...defaults]);
 }
 
+const SETTING_KEYS = [
+  "exampleFile",
+  "validation.enabled",
+  "validation.unresolvedReferences",
+  "validation.exampleDrift",
+  "files.include",
+  "files.exclude",
+] as const;
+
+export async function setDefaultSettings(): Promise<void> {
+  const confirm = "Set defaults";
+  const choice = await vscode.window.showWarningMessage(
+    "Set ENV Lens defaults for all workspaces?",
+    { modal: true },
+    confirm,
+  );
+  if (choice !== confirm) {
+    return;
+  }
+  const configuration = vscode.workspace.getConfiguration("envLens");
+  const targets: vscode.ConfigurationTarget[] = [vscode.ConfigurationTarget.Global];
+  if (vscode.workspace.workspaceFile || vscode.workspace.workspaceFolders?.length) {
+    targets.push(vscode.ConfigurationTarget.Workspace);
+  }
+  for (const key of SETTING_KEYS) {
+    const value = configuration.inspect(key)?.defaultValue;
+    for (const target of targets) {
+      await configuration.update(key, value, target);
+    }
+  }
+}
+
 export function readSettings(uri: vscode.Uri): EnvLensSettings {
   const configuration = vscode.workspace.getConfiguration("envLens", uri);
   const configuredExample = configuration.get<string>("exampleFile", DEFAULT_EXAMPLE_FILE).trim();

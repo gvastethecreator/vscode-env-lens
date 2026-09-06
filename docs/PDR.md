@@ -79,6 +79,7 @@ Never expose values in diagnostic messages.
 - `ENV Lens: Validate Current File`
 - `ENV Lens: Compare with Example`
 - `ENV Lens: Add Missing Keys to Example`
+- `ENV Lens: Set Defaults`
 
 ### Code Actions
 
@@ -235,7 +236,7 @@ Integration:
 
 ## Assets
 
-`media/icon-imagegen-source.png` retains the generated concept. `media/source/env-lens-approved.png` is the accepted crisp vectorized-3D native-alpha raster, normalized to a thin transparent safety margin. `media/icon.png` and `media/icon-512.png` are rendered directly from that PNG; no SVG production path remains. `media/preview.png` is the real installed-extension capture, tightly cropped to the dotenv editor and Problems panel with a transparent outer edge.
+`media/icon-imagegen-source.png` retains the generated concept. `media/source/env-lens-approved.png` is the accepted crisp vectorized semi-3D native-alpha raster with a front-facing lens, three readable key-and-value rows, controlled gradient depth, and a thin transparent safety margin. `media/icon.png` and `media/icon-512.png` are rendered directly from that PNG; no SVG production path remains. `media/preview.png` is the real installed-extension capture, tightly cropped to the dotenv editor and Problems panel with a transparent outer edge.
 
 ## Acceptance criteria for v1
 

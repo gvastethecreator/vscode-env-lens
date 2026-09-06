@@ -11,6 +11,7 @@ import { SecretSafeLogger } from "../logging/secretSafeLogger.ts";
 import {
   MAX_ENV_FILE_BYTES,
   readSettings,
+  setDefaultSettings,
 } from "../workspace/configuration.ts";
 import {
   EnvFileLimitError,
@@ -77,6 +78,7 @@ export class EnvCommandHandlers {
         COMMANDS.addMissingKeysToExample,
         (uri?: unknown, keys?: unknown) => this.addMissingKeysToExample(uri, keys),
       ),
+      vscode.commands.registerCommand(COMMANDS.setDefaults, () => setDefaultSettings()),
     );
   }
 

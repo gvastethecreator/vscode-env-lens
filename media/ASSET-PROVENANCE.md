@@ -3,11 +3,11 @@
 ## Marketplace icon
 
 - **Design date:** 2026-09-03
-- **Concept source:** OpenAI ImageGen output `exec-e951f7af-a39c-4692-8603-b8135ec8e63d`, retained in `icon-imagegen-source.png`.
-- **Prompt direction:** a minimal diagonal graphite magnifying glass inspecting exactly three aligned key/value rows in coral, orange, and violet; crisp vectorized 3D, transparent canvas, no France blue, emerald, plastic, glass, or background tile.
+- **Concept source:** OpenAI ImageGen style output `exec-08a21692-2a72-4086-a698-cba1ab33413d`, retained in `icon-imagegen-source.png`; native-alpha extraction output `exec-d21a11d1-b0d2-413c-99db-3a9bc1aaa229` produced the accepted cutout.
+- **Prompt direction:** a front-facing graphite magnifying glass inspecting exactly three aligned key/value rows in coral, orange, and violet; Tag Mate-style crisp vectorized semi-3D, controlled gradients, transparent canvas, no France blue, emerald, plastic, glass, or background tile.
 - **Approved production raster:** `source/env-lens-approved.png`, normalized to a thin transparent safety margin without redrawing the generated art.
 - **Exports:** `icon-512.png` and `icon.png`, rendered directly from the approved transparent PNG. No SVG reinterpretation remains.
-- **SHA-256:** raw `D728B2C4588D47D7DA4C1492BC4A541A369A6602B11EF3251A94F11201517FFF`; approved `2B25F73A2574171757FC12840911630EA916F1DAD00FC71318C88BDB92513207`; 256 px `17348FBC93A5D6DC2E19BDDB904BC96CF7F4316C04FB2484A0C32E3245F8A5CB`.
+- **SHA-256:** raw `B3A4B72BC29984F09081F0B3358CAE5C64524BCE2CE460F65EC20F33EECF2452`; approved `5B4D1A04526948BB880583AE795D34653C0E4D910E25E81009BB1B021C8B1B35`; 512 px `D508D0960D710916FFBD4DC7594FACEE4173AE4DB5F803C98CB64443BAFDB38B`; 256 px `4A7AEF2036809D42353A6B746E34F26555A285C570AC733C1CB7308599909656`.
 
 The final PNG files use a real alpha channel. Empty pixels, including all four corners, are transparent.
 
