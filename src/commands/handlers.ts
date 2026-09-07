@@ -12,6 +12,7 @@ import {
   MAX_ENV_FILE_BYTES,
   readSettings,
   setDefaultSettings,
+  resetSettings,
 } from "../workspace/configuration.ts";
 import {
   EnvFileLimitError,
@@ -78,7 +79,9 @@ export class EnvCommandHandlers {
         COMMANDS.addMissingKeysToExample,
         (uri?: unknown, keys?: unknown) => this.addMissingKeysToExample(uri, keys),
       ),
+      vscode.commands.registerCommand(COMMANDS.resetSettings, () => resetSettings()),
       vscode.commands.registerCommand(COMMANDS.setDefaults, () => setDefaultSettings()),
+      vscode.commands.registerCommand(COMMANDS.addMissingKeysToEnvironment, (uri?: unknown) => this.addMissingKeysToEnvironment(uri)),
     );
   }
 
@@ -272,6 +275,78 @@ export class EnvCommandHandlers {
       `Added ${plan.keys.length} empty ${plural(plan.keys.length, "key")} to ${uriBasename(target)}.`,
     );
     return true;
+  }
+
+  async addMissingKeysToEnvironment(argument?: unknown): Promise<void> {
+    const document = await this.requireDocument(argument);
+    if (!document) return;
+    try {
+      const settings = readSettings(document.uri);
+      const resolution = await this.families.comparison(document.uri, settings);
+      let source: vscode.Uri;
+      let target: vscode.Uri;
+      let create = false;
+      if (resolution.active.role === "example") {
+        source = document.uri;
+        const picks: (vscode.QuickPickItem & { uri?: vscode.Uri })[] = resolution.candidates.map((file) => ({
+          label: file.basename, description: relativeUriLabel(file.uri, file.workspaceFolder), uri: file.uri,
+        }));
+        picks.push({ label: "Create Environment File...", description: "Choose a new dotenv filename beside this example" });
+        const choice = await vscode.window.showQuickPick(picks, { title: "Add Missing Keys to Environment", placeHolder: "Choose the environment file to change" });
+        if (!choice) return;
+        if (choice.uri) target = choice.uri;
+        else {
+          const folder = vscode.workspace.getWorkspaceFolder(source);
+          if (!folder) {
+            void vscode.window.showErrorMessage("Open a workspace folder before creating an environment file.");
+            return;
+          }
+          const name = await vscode.window.showInputBox({
+            title: "Create Environment File", value: ".env", prompt: "File name beside the example",
+            validateInput: (value) => isEnvBasename(value) && !/[\\/]/.test(value) && value !== settings.exampleFile
+              ? undefined : "Enter a dotenv basename different from the example.",
+          });
+          if (name === undefined) return;
+          target = vscode.Uri.joinPath(uriDirectory(source), name);
+          if (!isUriInsideFolder(target, folder) || await resourceExists(target) || findOpenDocument(target)) {
+            void vscode.window.showErrorMessage("Choose a new environment file inside this workspace folder.");
+            return;
+          }
+          create = true;
+        }
+      } else {
+        target = document.uri;
+        const example = await this.selectCounterpart(resolution);
+        if (!example) {
+          if (!resolution.candidates.length) void vscode.window.showInformationMessage("No example file was found for this environment.");
+          return;
+        }
+        source = example.uri;
+      }
+      const sourceSnapshot = await readTextSnapshot(source, MAX_ENV_FILE_BYTES);
+      const targetSnapshot = create ? undefined : await readTextSnapshot(target, MAX_ENV_FILE_BYTES);
+      const missing = compareEnvDocuments(parseEnv(targetSnapshot?.text ?? ""), parseEnv(sourceSnapshot.text)).missingFromEnvironment;
+      if (!missing.length) {
+        void vscode.window.showInformationMessage("The environment already contains every key from the example.");
+        return;
+      }
+      const selected = await vscode.window.showQuickPick(missing.map(({ key }) => ({ label: key, picked: true })), {
+        title: `Add Empty Keys to ${uriBasename(target)}`, placeHolder: "Choose key names; values will be empty", canPickMany: true,
+      });
+      if (!selected?.length) return;
+      if (!await this.applyInsertion(target, targetSnapshot, sourceSnapshot, selected.map((item) => item.label), create)) return;
+      this.families.invalidate(vscode.workspace.getWorkspaceFolder(target));
+      this.diagnostics.schedule(document);
+      const opened = findOpenDocument(target);
+      if (opened && opened !== document) this.diagnostics.schedule(opened);
+    } catch (error) {
+      if (error instanceof EnvFileLimitError) {
+        void vscode.window.showErrorMessage("A related dotenv file exceeds the 2 MiB analysis limit.");
+      } else {
+        this.logger.error("command.add-environment.failed");
+        void vscode.window.showErrorMessage("ENV Lens could not update the environment file.");
+      }
+    }
   }
 
   async addMissingKeysToExample(argument?: unknown, requested?: unknown): Promise<void> {

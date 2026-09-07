@@ -108,7 +108,17 @@
       },
       {
         "command": "envLens.setDefaults",
-        "title": "Set Defaults",
+        "title": "Apply Factory Defaults...",
+        "category": "ENV Lens"
+      },
+      {
+        "command": "envLens.resetSettings",
+        "title": "Reset to Inherited Settings...",
+        "category": "ENV Lens"
+      },
+      {
+        "command": "envLens.addMissingKeysToEnvironment",
+        "title": "Add Missing Keys to Environment...",
         "category": "ENV Lens"
       }
     ],

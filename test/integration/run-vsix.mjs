@@ -69,7 +69,7 @@ if (process.platform === "linux") {
 }
 
 try {
-  await runTests({
+  await runTests({ extensionTestsEnv: { VSIX_SMOKE: "1" },
     vscodeExecutablePath,
     reuseMachineInstall: true,
     extensionDevelopmentPath: path.join(root, "test", "runner"),

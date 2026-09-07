@@ -42,3 +42,7 @@ More details: [product contract](docs/PDR.md) · [development](docs/development.
   <a href="https://github.com/gvastethecreator"><img src="https://shieldcn.dev/badge/follow%20me-/gvastethecreator.png?size=xs&amp;logo=github&amp;brand=github&amp;mode=dark&color=111111"></a>
   <a href="https://x.com/gvastebb"><img src="https://shieldcn.dev/x/follow/gvastebb.png?size=xs&color=111111&mode=dark"></a>
 </p>
+
+## Added controls
+
+Add Missing Keys to Environment uses the chosen example and environment snapshots. From an example, it asks for the target environment or an explicitly named new dotenv file beside it. From an environment, the active file is the target. The user chooses the missing key names. Each inserted entry is KEY= with no value copied. Existing entries and comments stay intact. Creation remains inside the workspace and refuses collisions. Source and target are checked again after prompts, including dirty editor buffers.

@@ -173,6 +173,39 @@ async function run() {
 
   await vscode.commands.executeCommand("envLens.compareWithExample", environment.uri);
   await vscode.commands.executeCommand("envLens.validateCurrentFile", environment.uri);
+
+  // Prompt stubs affect only the development extension API instance. Installed
+  // smoke uses a separate runner extension; the full prompt cases run above that
+  // packaging layer in test:integration. Keep noninteractive installed checks.
+  if (process.env.VSIX_SMOKE !== "1") {
+  const before = environment.getText();
+  const exampleUri = vscode.Uri.joinPath(vscode.workspace.workspaceFolders.find((folder) => folder.name === "alpha").uri, ".env.example");
+  const example = await vscode.workspace.openTextDocument(exampleUri);
+  const exampleEditor = await vscode.window.showTextDocument(example, { preview: false });
+  await exampleEditor.edit((builder) => builder.insert(example.positionAt(example.getText().length), "\nGRILL_MISSING=synthetic-example-value\n"));
+  const originalPicker = vscode.window.showQuickPick;
+  const originalWarning = vscode.window.showWarningMessage;
+  vscode.window.showQuickPick = async (items, options) => options?.canPickMany ? items.filter((item) => item.label === "GRILL_MISSING") : items[0];
+  vscode.window.showWarningMessage = async (_message, _options, action) => action;
+  try {
+    await vscode.commands.executeCommand("envLens.addMissingKeysToEnvironment", environment.uri);
+    assert.equal(environment.getText(), before + (before.endsWith("\n") ? "" : "\n") + "GRILL_MISSING=\n");
+    assert.equal(environment.getText().includes("synthetic-example-value"), false);
+    assert.equal(example.isDirty, true, "The source buffer was saved implicitly.");
+
+    const targetBefore = environment.getText();
+    await exampleEditor.edit((builder) => builder.insert(example.positionAt(example.getText().length), "RACE_KEY=\n"));
+    vscode.window.showQuickPick = async (items) => {
+      await exampleEditor.edit((builder) => builder.insert(new vscode.Position(0, 0), "# changed while choosing\n"));
+      return items.filter((item) => item.label === "RACE_KEY");
+    };
+    await vscode.commands.executeCommand("envLens.addMissingKeysToEnvironment", environment.uri);
+    assert.equal(environment.getText(), targetBefore, "A stale source snapshot was written.");
+  } finally {
+    vscode.window.showQuickPick = originalPicker;
+    vscode.window.showWarningMessage = originalWarning;
+  }  }
+
 }
 
 module.exports = { run };

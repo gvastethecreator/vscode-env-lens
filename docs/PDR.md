@@ -79,7 +79,7 @@ Never expose values in diagnostic messages.
 - `ENV Lens: Validate Current File`
 - `ENV Lens: Compare with Example`
 - `ENV Lens: Add Missing Keys to Example`
-- `ENV Lens: Set Defaults`
+- `ENV Lens: Apply Factory Defaults...`
 
 ### Code Actions
 
@@ -268,3 +268,18 @@ Before publication, verify naming collisions in Marketplace and Open VSX.
 ## Definition of done
 
 Implementation, tests, security review, Marketplace assets, README, CHANGELOG, LICENSE, privacy section, CI, VSIX smoke test and Open VSX compatibility review are all complete.
+
+## Accepted PR implementation
+
+Add Missing Keys to Environment uses the chosen example and environment snapshots. From an example, it asks for the target environment or an explicitly named new dotenv file beside it. From an environment, the active file is the target. The user chooses the missing key names. Each inserted entry is KEY= with no value copied. Existing entries and comments stay intact. Creation remains inside the workspace and refuses collisions. Source and target are checked again after prompts, including dirty editor buffers.
+
+The two settings actions first ask for one scope. Apply Factory Defaults writes manifest defaults only in that scope. Reset to Inherited Settings removes explicit values only there. Both preserve language overrides and settings in other scopes. User and Workspace are available; Folder is available only for resource settings in a workspace file. Cancelling either picker or confirmation makes no change. A failed write reports how many keys changed; it does not claim an atomic settings transaction.
+
+Command identifiers:
+
+- `envLens.validateCurrentFile`: Validate Current File
+- `envLens.compareWithExample`: Compare with Example
+- `envLens.addMissingKeysToExample`: Add Missing Keys to Example
+- `envLens.setDefaults`: Apply Factory Defaults...
+- `envLens.resetSettings`: Reset to Inherited Settings...
+- `envLens.addMissingKeysToEnvironment`: Add Missing Keys to Environment...

@@ -1,104 +1,121 @@
-# Code map · vscode-env-lens
+# Code map: vscode-env-lens
 
-generated: 2026-09-05T04:45:27Z
-commit: fd804a44a4be
-scope: .
+Generated: 2026-09-07T03:20:42Z | Commit: `157948d06965` | Schema: 2
+Generation: `ee159033f352e32a0e742d800ad42962f5377620dfff8b99b515d318d16a06f7`
+Scope: . | Inventory: working-tree
+Nodes: 62 | Edges: 216 | Flows: 0
 
-counts: 10 nodes · 24 edges · 0 flows · 0 unknown
+## Coverage
+
+- Analysis: **partial**; 43 analyzed of 44 included files.
+- Configuration files: 1; omitted untracked files: 0.
+- Unresolved references and analysis limits: 193.
+- Static references and call paths do not prove runtime execution or test coverage.
 
 ## Modules
 
-- `esbuild` · `esbuild.cjs` · interface · Esbuild
-  callers: repository (calls)
-  callees: external-dependencies (imports)
-  tests: (none)
-  entry: esbuild.cjs:main
-
-- `external-dependencies` · `esbuild.cjs` · external · External
-  callers: esbuild (imports), scripts (imports), src (imports), src-commands (imports), src-language (imports), src-logging (imports), src-workspace (imports)
-  callees: (none)
-  tests: (none)
-  entry: esbuild.cjs:esbuild
-
-- `repository` · `package.json` · module · Repository
-  callers: (none)
-  callees: esbuild (calls), scripts (calls)
-  tests: (none)
-  entry: package.json:{
-
-- `scripts` · `scripts` · service · Scripts
-  callers: repository (calls)
-  callees: external-dependencies (imports), src-core (imports)
-  tests: (none)
-  entry: scripts/build-web-tests.mjs:root
-
-- `src` · `src` · module · Src
-  callers: src-commands (imports), src-language (imports)
-  callees: external-dependencies (imports), src-commands (imports), src-language (imports), src-logging (imports), src-workspace (imports)
-  tests: (none)
-  entry: src/commands.ts:COMMANDS
-
-- `src-commands` · `src/commands` · module · Src
-  callers: src (imports)
-  callees: external-dependencies (imports), src (imports), src-core (imports), src-language (imports), src-logging (imports), src-workspace (imports)
-  tests: (none)
-  entry: src/commands/handlers.ts:plural
-
-- `src-core` · `src/core` · service · Src
-  callers: scripts (imports), src-commands (imports), src-language (imports), src-workspace (imports)
-  callees: (none)
-  tests: src/core/compare.test.ts, src/core/edits.test.ts, src/core/filenames.test.ts, src/core/messages.test.ts, src/core/parser.test.ts
-  entry: src/core/compare.ts:uniqueEntries
-
-- `src-language` · `src/language` · module · Src
-  callers: src (imports), src-commands (imports)
-  callees: external-dependencies (imports), src (imports), src-core (imports), src-logging (imports), src-workspace (imports)
-  tests: (none)
-  entry: src/language/codeActions.ts:EnvCodeActionProvider
-
-- `src-logging` · `src/logging` · module · Src
-  callers: src (imports), src-commands (imports), src-language (imports)
-  callees: external-dependencies (imports)
-  tests: (none)
-  entry: src/logging/secretSafeLogger.ts:formatFields
-
-- `src-workspace` · `src/workspace` · module · Src
-  callers: src (imports), src-commands (imports), src-language (imports)
-  callees: external-dependencies (imports), src-core (imports)
-  tests: (none)
-  entry: src/workspace/configuration.ts:boundedStringArray
+- `esbuild.cjs` | module | Repository | callers: none | callees: external:javascript:esbuild, external:javascript:esbuild | tests: 0 | entry: none
+- `external:javascript:@vscode/test-electron` | external | External | callers: test/integration/run-vsix.mjs, test/integration/run-vsix.mjs, test/integration/run.mjs, test/integration/run.mjs | callees: none | tests: 2 | entry: none
+- `external:javascript:@vscode/test-web` | external | External | callers: test/web/run.mjs, test/web/run.mjs | callees: none | tests: 1 | entry: none
+- `external:javascript:esbuild` | external | External | callers: esbuild.cjs, esbuild.cjs, scripts/build-web-tests.mjs, scripts/build-web-tests.mjs | callees: none | tests: 0 | entry: none
+- `external:javascript:node:assert` | external | External | callers: scripts/check-grammar.mjs, scripts/check-media.mjs, scripts/inspect-vsix.mjs, scripts/performance.mjs | callees: none | tests: 6 | entry: none
+- `external:javascript:node:child_process` | external | External | callers: scripts/release-artifact.mjs, scripts/release-artifact.mjs, test/integration/run-vsix.mjs, test/integration/run-vsix.mjs | callees: none | tests: 1 | entry: none
+- `external:javascript:node:crypto` | external | External | callers: scripts/release-artifact.mjs, scripts/release-artifact.mjs | callees: none | tests: 0 | entry: none
+- `external:javascript:node:fs` | external | External | callers: scripts/check-grammar.mjs, scripts/check-grammar.mjs, scripts/check-media.mjs, scripts/check-media.mjs | callees: none | tests: 2 | entry: none
+- `external:javascript:node:os` | external | External | callers: test/integration/run-vsix.mjs, test/integration/run.mjs | callees: none | tests: 2 | entry: none
+- `external:javascript:node:path` | external | External | callers: scripts/build-web-tests.mjs, scripts/check-grammar.mjs, scripts/check-media.mjs, scripts/inspect-vsix.mjs | callees: none | tests: 3 | entry: none
+- `external:javascript:node:perf_hooks` | external | External | callers: scripts/performance.mjs | callees: none | tests: 0 | entry: none
+- `external:javascript:node:test` | external | External | callers: src/core/compare.test.ts, src/core/compare.test.ts, src/core/edits.test.ts, src/core/edits.test.ts | callees: none | tests: 5 | entry: none
+- `external:javascript:node:url` | external | External | callers: scripts/build-web-tests.mjs, scripts/build-web-tests.mjs, scripts/check-grammar.mjs, scripts/check-grammar.mjs | callees: none | tests: 3 | entry: none
+- `external:javascript:node:zlib` | external | External | callers: scripts/inspect-vsix.mjs, scripts/inspect-vsix.mjs | callees: none | tests: 0 | entry: none
+- `external:javascript:sharp` | external | External | callers: scripts/check-media.mjs, scripts/check-media.mjs, scripts/render-media.mjs, scripts/render-media.mjs | callees: none | tests: 0 | entry: none
+- `external:javascript:vscode` | external | External | callers: src/commands/handlers.ts, src/extension.ts, src/language/codeActions.ts, src/language/completion.ts | callees: none | tests: 2 | entry: none
+- `external:javascript:vscode-oniguruma` | external | External | callers: scripts/check-grammar.mjs | callees: none | tests: 0 | entry: none
+- `external:javascript:vscode-textmate` | external | External | callers: scripts/check-grammar.mjs | callees: none | tests: 0 | entry: none
+- `external:javascript:yauzl` | external | External | callers: scripts/inspect-vsix.mjs | callees: none | tests: 0 | entry: none
+- `package.json` | module | Repository | callers: none | callees: none | tests: 0 | entry: none
+- Showing 20 of 62 nodes. Query `impact --module <path>` or open the HTML hierarchy for the rest.
 
 ## Edges
 
-- esbuild -> external-dependencies · imports
-- repository -> esbuild · calls
-- repository -> scripts · calls
-- scripts -> external-dependencies · imports
-- scripts -> src-core · imports
-- src -> external-dependencies · imports
-- src -> src-commands · imports
-- src -> src-language · imports
-- src -> src-logging · imports
-- src -> src-workspace · imports
-- src-commands -> external-dependencies · imports
-- src-commands -> src · imports
-- src-commands -> src-core · imports
-- src-commands -> src-language · imports
-- src-commands -> src-logging · imports
-- src-commands -> src-workspace · imports
-- src-language -> external-dependencies · imports
-- src-language -> src · imports
-- src-language -> src-core · imports
-- src-language -> src-logging · imports
-- src-language -> src-workspace · imports
-- src-logging -> external-dependencies · imports
-- src-workspace -> external-dependencies · imports
-- src-workspace -> src-core · imports
+- `esbuild.cjs` -> `external:javascript:esbuild` | calls
+- `esbuild.cjs` -> `external:javascript:esbuild` | imports
+- `scripts/build-web-tests.mjs` -> `external:javascript:esbuild` | calls
+- `scripts/build-web-tests.mjs` -> `external:javascript:esbuild` | imports
+- `scripts/build-web-tests.mjs` -> `external:javascript:node:path` | imports
+- `scripts/build-web-tests.mjs` -> `external:javascript:node:url` | calls
+- `scripts/build-web-tests.mjs` -> `external:javascript:node:url` | imports
+- `scripts/check-grammar.mjs` -> `external:javascript:node:assert` | imports
+- `scripts/check-grammar.mjs` -> `external:javascript:node:fs` | calls
+- `scripts/check-grammar.mjs` -> `external:javascript:node:fs` | imports
+- `scripts/check-grammar.mjs` -> `external:javascript:node:path` | imports
+- `scripts/check-grammar.mjs` -> `external:javascript:node:url` | calls
+- `scripts/check-grammar.mjs` -> `external:javascript:node:url` | imports
+- `scripts/check-grammar.mjs` -> `external:javascript:vscode-oniguruma` | imports
+- `scripts/check-grammar.mjs` -> `external:javascript:vscode-textmate` | imports
+- `scripts/check-media.mjs` -> `external:javascript:node:assert` | imports
+- `scripts/check-media.mjs` -> `external:javascript:node:fs` | calls
+- `scripts/check-media.mjs` -> `external:javascript:node:fs` | imports
+- `scripts/check-media.mjs` -> `external:javascript:node:path` | imports
+- `scripts/check-media.mjs` -> `external:javascript:node:url` | calls
+- `scripts/check-media.mjs` -> `external:javascript:node:url` | imports
+- `scripts/check-media.mjs` -> `external:javascript:sharp` | calls
+- `scripts/check-media.mjs` -> `external:javascript:sharp` | imports
+- `scripts/inspect-vsix.mjs` -> `external:javascript:node:assert` | imports
+- `scripts/inspect-vsix.mjs` -> `external:javascript:node:fs` | calls
+- `scripts/inspect-vsix.mjs` -> `external:javascript:node:fs` | imports
+- `scripts/inspect-vsix.mjs` -> `external:javascript:node:path` | imports
+- `scripts/inspect-vsix.mjs` -> `external:javascript:node:url` | calls
+- `scripts/inspect-vsix.mjs` -> `external:javascript:node:url` | imports
+- `scripts/inspect-vsix.mjs` -> `external:javascript:node:zlib` | calls
+- `scripts/inspect-vsix.mjs` -> `external:javascript:node:zlib` | imports
+- `scripts/inspect-vsix.mjs` -> `external:javascript:yauzl` | imports
+- `scripts/performance.mjs` -> `external:javascript:node:assert` | imports
+- `scripts/performance.mjs` -> `external:javascript:node:perf_hooks` | imports
+- `scripts/performance.mjs` -> `src/core/parser.ts` | calls
+- `scripts/performance.mjs` -> `src/core/parser.ts` | imports
+- `scripts/release-artifact.mjs` -> `external:javascript:node:assert` | imports
+- `scripts/release-artifact.mjs` -> `external:javascript:node:child_process` | calls
+- `scripts/release-artifact.mjs` -> `external:javascript:node:child_process` | imports
+- `scripts/release-artifact.mjs` -> `external:javascript:node:crypto` | calls
+- `scripts/release-artifact.mjs` -> `external:javascript:node:crypto` | imports
+- `scripts/release-artifact.mjs` -> `external:javascript:node:fs` | calls
+- `scripts/release-artifact.mjs` -> `external:javascript:node:fs` | imports
+- `scripts/render-media.mjs` -> `external:javascript:node:path` | imports
+- `scripts/render-media.mjs` -> `external:javascript:node:url` | calls
+- `scripts/render-media.mjs` -> `external:javascript:node:url` | imports
+- `scripts/render-media.mjs` -> `external:javascript:sharp` | calls
+- `scripts/render-media.mjs` -> `external:javascript:sharp` | imports
+- `src/commands/handlers.ts` -> `external:javascript:vscode` | imports
+- `src/commands/handlers.ts` -> `src/commands.ts` | imports
+- Showing 50 of 216 edges; JSON contains every edge and its evidence.
 
 ## Unknown
 
-- none
+- `package.json:1`: unresolved-local-import (./dist/node/extension.cjs)
+- `scripts/build-web-tests.mjs:5`: object-member-call-not-resolved (path)
+- `scripts/build-web-tests.mjs:5`: object-member-call-not-resolved (path)
+- `scripts/build-web-tests.mjs:7`: object-member-call-not-resolved (path)
+- `scripts/build-web-tests.mjs:12`: object-member-call-not-resolved (path)
+- `scripts/check-grammar.mjs:8`: object-member-call-not-resolved (path)
+- `scripts/check-grammar.mjs:8`: object-member-call-not-resolved (path)
+- `scripts/check-grammar.mjs:9`: object-member-call-not-resolved (path)
+- `scripts/check-grammar.mjs:11`: object-member-call-not-resolved (textmate)
+- `scripts/check-grammar.mjs:14`: object-member-call-not-resolved (oniguruma)
+- `scripts/check-grammar.mjs:24`: object-member-call-not-resolved (assert)
+- `scripts/check-grammar.mjs:65`: object-member-call-not-resolved (assert)
 
 ## Flows
 
-- none
+- no source-backed call path from a recognized trigger
+
+## Architecture changes
+
+- Nodes: +3 / -0; edges: +10 / -23.
+- Boundary changes: 0; new cycles: 0.
+
+## Read next
+
+- Use `status` before relying on this generation.
+- Use `impact --changed` for possible impact and related test evidence.
+- Use `diff --before <model> --after <model>` for architecture changes.

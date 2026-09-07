@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 
 export type SafeLogFields = Readonly<Record<string, number | boolean>>;
 export type SafeLogEvent =
+  | "command.add-environment.failed"
   | "command.add-missing.failed"
   | "command.compare.failed"
   | "document.limit"

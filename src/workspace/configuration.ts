@@ -1,3 +1,4 @@
+import { changeSettings } from "../settingsActions.ts";
 import * as vscode from "vscode";
 import { isSafeExampleFilename } from "../core/filenames.ts";
 
@@ -47,26 +48,11 @@ const SETTING_KEYS = [
 ] as const;
 
 export async function setDefaultSettings(): Promise<void> {
-  const confirm = "Set defaults";
-  const choice = await vscode.window.showWarningMessage(
-    "Set ENV Lens defaults for all workspaces?",
-    { modal: true },
-    confirm,
-  );
-  if (choice !== confirm) {
-    return;
-  }
-  const configuration = vscode.workspace.getConfiguration("envLens");
-  const targets: vscode.ConfigurationTarget[] = [vscode.ConfigurationTarget.Global];
-  if (vscode.workspace.workspaceFile || vscode.workspace.workspaceFolders?.length) {
-    targets.push(vscode.ConfigurationTarget.Workspace);
-  }
-  for (const key of SETTING_KEYS) {
-    const value = configuration.inspect(key)?.defaultValue;
-    for (const target of targets) {
-      await configuration.update(key, value, target);
-    }
-  }
+  await changeSettings("envLens", "ENV Lens", SETTING_KEYS, "defaults", true);
+}
+
+export async function resetSettings(): Promise<void> {
+  await changeSettings("envLens", "ENV Lens", SETTING_KEYS, "inherit", true);
 }
 
 export function readSettings(uri: vscode.Uri): EnvLensSettings {
