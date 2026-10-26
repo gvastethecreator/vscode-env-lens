@@ -1,12 +1,12 @@
 {
   "schema_version": 2,
-  "source_commit": "157948d069653f222126eaef6e6e0fc7fa0f13e5",
+  "source_commit": "2e38ad2d599f4cf515ceb67635c7d9735d1f608e",
   "working_tree_dirty": true,
-  "generated_at": "2026-09-07T03:20:42Z",
-  "generation_id": "ee159033f352e32a0e742d800ad42962f5377620dfff8b99b515d318d16a06f7",
+  "generated_at": "2026-10-26T04:43:25Z",
+  "generation_id": "77766990abe4e2625cf058cac7c476d996132eb2e855353259048679a64596d4",
   "analysis": {
     "version": "syntax-1",
-    "digest": "3c79d1c345c40f78e72d86e76fcdb0c240c137eb03778015ce78f994b43e3ccf"
+    "digest": "aac5588c813568478eb34b9cb090e19685ad183efe6d8b3496f261834a7c0f44"
   },
   "inventory": {
     "policy": {
@@ -53,8 +53,8 @@
         "path": "package.json",
         "origin": "tracked",
         "state": "present",
-        "digest": "32633c67f32d5477a2f67bbeda98ad21d7ada904b0a9f0076bee3091ce57cec6",
-        "size": 6405
+        "digest": "faa3ca21b894a4d90d6f57114391af800af93cc2a044faa93e0ce105803afbcb",
+        "size": 6381
       },
       {
         "path": "scripts/build-web-tests.mjs",
@@ -93,7 +93,7 @@
       },
       {
         "path": "scripts/release-artifact.mjs",
-        "origin": "untracked",
+        "origin": "tracked",
         "state": "present",
         "digest": "22d3b41f2b8372e224466db0a33ae9686e4b99ee8fa3b45e713a20207e51ea69",
         "size": 5219
@@ -165,15 +165,15 @@
         "path": "src/core/messages.test.ts",
         "origin": "tracked",
         "state": "present",
-        "digest": "046da57dc9755fea41658e87b99b5390aabd01c71355eabd303811b258e8b252",
-        "size": 1092
+        "digest": "e8de98855f864ebe046e0eafa262a7c58387c59fd8ff1eec05fea421b4a2a81c",
+        "size": 1079
       },
       {
         "path": "src/core/messages.ts",
         "origin": "tracked",
         "state": "present",
-        "digest": "7daa36382a9f1e520ba8206e45422b815719cea60cce0796d34e6518f3d6621e",
-        "size": 1038
+        "digest": "ced9b0c1d758ec98a78a443caeb564334ec4df50f9f9755744ef3ab98270889b",
+        "size": 1098
       },
       {
         "path": "src/core/model.ts",
@@ -207,8 +207,8 @@
         "path": "src/language/codeActions.ts",
         "origin": "tracked",
         "state": "present",
-        "digest": "16fe338ba3ac8a3c239debb3d0ea89200fdaff42c8f4965d34feef53ed0d7a22",
-        "size": 1503
+        "digest": "12d5852f4104202d66756eb23a914a4118141049dc359c2d91eb59b004a79a98",
+        "size": 1692
       },
       {
         "path": "src/language/completion.ts",
@@ -261,7 +261,7 @@
       },
       {
         "path": "src/settingsActions.ts",
-        "origin": "untracked",
+        "origin": "tracked",
         "state": "present",
         "digest": "2d9238bfb5bac72260aefe2e61375e542b733efe4b0123de61798144ac6b8ab1",
         "size": 2810
@@ -284,8 +284,8 @@
         "path": "src/workspace/family.ts",
         "origin": "tracked",
         "state": "present",
-        "digest": "35e25f0597556f6a5a9c8029f37895000237c13e49a119e45828328aeb3af845",
-        "size": 9844
+        "digest": "dac594b66b5b45bb293b6e2d4051b9a95c1f581cc31afa5eb904b45e464fcac6",
+        "size": 10008
       },
       {
         "path": "src/workspace/uri.ts",
@@ -351,12 +351,12 @@
         "size": 382
       }
     ],
-    "digest": "d7906218bb76fa563a209c28e10d5058cc05a134b4e227ef949435b6a8e13b80"
+    "digest": "93e0c7b784e99136eeeaffeaaa054580db11e6852b7dd2a414542a1c7285d4e3"
   },
-  "source_digest": "47ec85f9251566592d29778f5442a8c8b46afdef45f28f8beb7dcf29c1e07508",
+  "source_digest": "a8572c6222797441af4214aa803e5a3d398e05e22aac4053207b8c63d1e84494",
   "artifact_hashes": {
-    "codemap.json": "02b8770a3ee5c796855c3c6121f3589829d9b5404d203056b7a6eda3d69c1243",
-    "codemap.md": "5188a645282a2ad96801e3fafbe475cdfe85ca2a7baae371f6f129c11a786f4e",
-    "codemap.html": "ffe0a5347ce3bb12444221cc3907a0fa22dbc7855ee4a8ce2c04d2d98b6eb595"
+    "codemap.json": "bf4d971393fe40ea39411c6e8bb45deba899d974512841ee5dad9ff948d06a1c",
+    "codemap.md": "0171ccf188f5ce3bc8ea5f25098a15fff0331491bd0579050eda9e0742cbdecf",
+    "codemap.html": "83d3bc0f6255ee5afcd7d7d18256b424d001bba35e5c24a0762f3af777ee90f0"
   }
 }
