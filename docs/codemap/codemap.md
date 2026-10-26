@@ -1,7 +1,7 @@
 # Code map: vscode-env-lens
 
-Generated: 2026-10-26T04:43:25Z | Commit: `2e38ad2d599f` | Schema: 2
-Generation: `77766990abe4e2625cf058cac7c476d996132eb2e855353259048679a64596d4`
+Generated: 2026-10-26T07:24:17Z | Commit: `3a3a79f1f7bf` | Schema: 2
+Generation: `26ed6603dc1a6728c2d3ac084038bbcff6028a5df980be38f6ed086e5881bba7`
 Scope: . | Inventory: working-tree
 Nodes: 62 | Edges: 216 | Flows: 0
 
@@ -9,7 +9,7 @@ Nodes: 62 | Edges: 216 | Flows: 0
 
 - Analysis: **partial**; 43 analyzed of 44 included files.
 - Configuration files: 1; omitted untracked files: 0.
-- Unresolved references and analysis limits: 193.
+- Unresolved references and analysis limits: 194.
 - Static references and call paths do not prove runtime execution or test coverage.
 
 ## Modules
