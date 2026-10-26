@@ -1,0 +1,223 @@
+{
+  "name": "env-lens",
+  "displayName": "ENV Lens",
+  "description": "Validate dotenv files, compare env families, and add safe example placeholders.",
+  "version": "0.1.0",
+  "packageManager": "pnpm@12.15.0",
+  "publisher": "gvastethecreator",
+  "author": {
+    "name": "gvastethecreator"
+  },
+  "license": "MIT",
+  "type": "module",
+  "icon": "media/icon.png",
+  "private": true,
+  "pricing": "Free",
+  "galleryBanner": {
+    "color": "#111318",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gvastethecreator/vscode-env-lens.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gvastethecreator/vscode-env-lens/issues"
+  },
+  "homepage": "https://github.com/gvastethecreator/vscode-env-lens#readme",
+  "keywords": [
+    "dotenv",
+    "env",
+    "environment variables",
+    ".env",
+    "validation",
+    "configuration",
+    "secrets"
+  ],
+  "engines": {
+    "vscode": "^1.134.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Linters"
+  ],
+  "activationEvents": [],
+  "main": "./dist/node/extension.cjs",
+  "browser": "./dist/web/extension.cjs",
+  "extensionKind": [
+    "workspace"
+  ],
+  "files": [
+    "dist/node/extension.cjs",
+    "dist/web/extension.cjs",
+    "syntaxes/**",
+    "media/icon.png",
+    "media/preview.png",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "SECURITY.md"
+  ],
+  "capabilities": {
+    "virtualWorkspaces": {
+      "supported": true
+    },
+    "untrustedWorkspaces": {
+      "supported": true
+    }
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "dotenv",
+        "aliases": [
+          "dotenv",
+          "ENV"
+        ],
+        "filenames": [
+          ".env"
+        ],
+        "filenamePatterns": [
+          "**/.env.*"
+        ],
+        "configuration": "./syntaxes/dotenv.language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "dotenv",
+        "scopeName": "source.dotenv",
+        "path": "./syntaxes/dotenv.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "envLens.validateCurrentFile",
+        "title": "Validate Current File",
+        "category": "ENV Lens"
+      },
+      {
+        "command": "envLens.compareWithExample",
+        "title": "Compare with Example",
+        "category": "ENV Lens"
+      },
+      {
+        "command": "envLens.addMissingKeysToExample",
+        "title": "Add Missing Keys to Example",
+        "category": "ENV Lens"
+      },
+      {
+        "command": "envLens.setDefaults",
+        "title": "Apply Factory Defaults...",
+        "category": "ENV Lens"
+      },
+      {
+        "command": "envLens.resetSettings",
+        "title": "Reset to Inherited Settings...",
+        "category": "ENV Lens"
+      },
+      {
+        "command": "envLens.addMissingKeysToEnvironment",
+        "title": "Add Missing Keys to Environment...",
+        "category": "ENV Lens"
+      }
+    ],
+    "configuration": {
+      "title": "ENV Lens",
+      "properties": {
+        "envLens.exampleFile": {
+          "type": "string",
+          "default": ".env.example",
+          "pattern": "^\\.env(?:\\.[A-Za-z0-9_-]+)+$",
+          "scope": "resource",
+          "description": "Dotenv basename used as the example file for the active env family."
+        },
+        "envLens.validation.enabled": {
+          "type": "boolean",
+          "default": true,
+          "scope": "resource",
+          "description": "Validate open dotenv files."
+        },
+        "envLens.validation.unresolvedReferences": {
+          "type": "boolean",
+          "default": true,
+          "scope": "resource",
+          "description": "Report unresolved and direct self references."
+        },
+        "envLens.validation.exampleDrift": {
+          "type": "boolean",
+          "default": true,
+          "scope": "resource",
+          "description": "Report key-name differences between related environment and example files."
+        },
+        "envLens.files.include": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "default": [
+            "**/.env",
+            "**/.env.*"
+          ],
+          "maxItems": 16,
+          "scope": "resource",
+          "description": "Workspace-relative glob patterns used for bounded env-family discovery."
+        },
+        "envLens.files.exclude": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "default": [
+            "**/node_modules/**",
+            "**/.git/**",
+            "**/dist/**",
+            "**/build/**",
+            "**/out/**"
+          ],
+          "maxItems": 16,
+          "scope": "resource",
+          "description": "Workspace-relative glob patterns excluded from env-family discovery."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run package",
+    "compile": "tsc --noEmit && node esbuild.cjs",
+    "watch": "node esbuild.cjs --watch",
+    "package": "tsc --noEmit && node esbuild.cjs --production",
+    "vsix": "vsce package --no-dependencies --out env-lens.vsix",
+    "inspect:vsix": "node scripts/inspect-vsix.mjs env-lens.vsix",
+    "check-types": "tsc --noEmit",
+    "test": "pnpm run test:unit",
+    "test:unit": "node --test --experimental-strip-types src/**/*.test.ts",
+    "test:grammar": "node scripts/check-grammar.mjs",
+    "test:performance": "node --experimental-strip-types scripts/performance.mjs",
+    "render:media": "node scripts/render-media.mjs",
+    "check:media": "node scripts/check-media.mjs",
+    "test:integration": "node test/integration/run.mjs",
+    "build:test-web": "node scripts/build-web-tests.mjs",
+    "test:web": "pnpm run build:test-web && node test/web/run.mjs",
+    "test:vsix": "node test/integration/run-vsix.mjs",
+    "quality": "pnpm run test:unit && pnpm run test:grammar && pnpm run check-types && pnpm run compile && pnpm run test:performance && pnpm run check:media"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "@types/vscode": "1.134.0",
+    "@types/yauzl": "3.4.0",
+    "@vscode/test-electron": "3.1.0",
+    "@vscode/test-web": "0.0.81",
+    "@vscode/vsce": "^4.0.0",
+    "esbuild": "^0.28.2",
+    "ovsx": "1.3.0",
+    "playwright": "1.64.1",
+    "sharp": "^0.35.5",
+    "typescript": "^7.0.2",
+    "vscode-oniguruma": "2.0.1",
+    "vscode-textmate": "9.3.2",
+    "yauzl": "3.4.0"
+  }
+}

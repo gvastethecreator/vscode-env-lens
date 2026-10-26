@@ -1,0 +1,113 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "dotenv",
+  "scopeName": "source.dotenv",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#assignment"
+    },
+    {
+      "include": "#invalid-assignment"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.dotenv",
+          "match": "^\\s*#.*$"
+        }
+      ]
+    },
+    "assignment": {
+      "begin": "^(\\s*)(?:(export)(\\s+))?([A-Za-z_][A-Za-z0-9_]*)(\\s*)(=)(\\s*)",
+      "beginCaptures": {
+        "2": {
+          "name": "storage.modifier.export.dotenv"
+        },
+        "4": {
+          "name": "variable.other.env.dotenv"
+        },
+        "6": {
+          "name": "keyword.operator.assignment.dotenv"
+        }
+      },
+      "end": "$",
+      "patterns": [
+        {
+          "name": "string.quoted.double.dotenv",
+          "begin": "\\G\"",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.dotenv"
+            }
+          },
+          "end": "\"(?=\\s*(?:#.*)?$)",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.dotenv"
+            }
+          },
+          "patterns": [
+            {
+              "name": "constant.character.escape.dotenv",
+              "match": "\\\\."
+            },
+            {
+              "include": "#reference"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.dotenv",
+          "begin": "\\G'",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.dotenv"
+            }
+          },
+          "end": "'(?=\\s*(?:#.*)?$)",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.dotenv"
+            }
+          }
+        },
+        {
+          "name": "comment.line.number-sign.dotenv",
+          "match": "(?<=\\s)#.*$"
+        },
+        {
+          "include": "#reference"
+        },
+        {
+          "name": "string.unquoted.dotenv",
+          "match": "[^\\s].*?(?=\\s+#|$)"
+        }
+      ]
+    },
+    "reference": {
+      "patterns": [
+        {
+          "name": "variable.other.readwrite.env.dotenv",
+          "match": "(?<!\\\\)\\$\\{[A-Za-z_][A-Za-z0-9_]*\\}"
+        }
+      ]
+    },
+    "invalid-assignment": {
+      "patterns": [
+        {
+          "name": "invalid.illegal.key.dotenv",
+          "match": "^\\s*(?:export\\s+)?[^#\\s=]+(?=\\s*=)"
+        },
+        {
+          "name": "invalid.illegal.assignment.dotenv",
+          "match": "^\\s*[^#\\s].*$"
+        }
+      ]
+    }
+  }
+}

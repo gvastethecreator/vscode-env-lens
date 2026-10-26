@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "name": "alpha",
+      "path": "alpha"
+    },
+    {
+      "name": "beta",
+      "path": "beta"
+    }
+  ],
+  "settings": {
+    "envLens.validation.enabled": true,
+    "envLens.validation.unresolvedReferences": true,
+    "envLens.validation.exampleDrift": true
+  }
+}
